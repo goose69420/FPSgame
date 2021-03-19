@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 317142228}
   - component: {fileID: 317142229}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Area Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -92,6 +92,36 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 1.43
   m_ShadowAngle: 0
+--- !u!1 &1785612240
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1785612241}
+  m_Layer: 2
+  m_Name: GunPossition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1785612241
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785612240}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.356, y: 0.23, z: 0.102}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3605908096236666748}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3605908096236666737
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,7 +133,7 @@ GameObject:
   - component: {fileID: 3605908096236666748}
   - component: {fileID: 3605908096236666739}
   - component: {fileID: 3605908096236666738}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -127,6 +157,7 @@ Transform:
   - {fileID: 3605908097995459476}
   - {fileID: 3605908097095586828}
   - {fileID: 317142228}
+  - {fileID: 1785612241}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -200,7 +231,7 @@ GameObject:
   - component: {fileID: 3605908096586086032}
   - component: {fileID: 3605908096586086039}
   - component: {fileID: 3605908096586086038}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,7 +322,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3605908096671164991}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -321,7 +352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3605908096717995319}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: pickupCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,7 +383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3605908097095586828}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: StandCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +414,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3605908097276557554}
   - component: {fileID: 3605908097276557555}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +488,7 @@ GameObject:
   - component: {fileID: 3605908097525237650}
   - component: {fileID: 3605908097525237661}
   - component: {fileID: 1567936378}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -564,7 +595,10 @@ MonoBehaviour:
   center: {fileID: 3605908096717995318}
   position: {fileID: 3605908097276557553}
   item: {fileID: 0}
+  gunPosition: {fileID: 1785612240}
+  PController: {fileID: 0}
   pickedAny: 0
+  Epresses: 0
 --- !u!114 &1567936378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -588,7 +622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3605908097995459476}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: HeadCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

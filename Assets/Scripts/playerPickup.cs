@@ -9,6 +9,7 @@ public class playerPickup : MonoBehaviour
     public GameObject center;
     public GameObject position;
     public GameObject item;
+    public GameObject gunPosition;
     public pickupController PController;
     public bool pickedAny;
     public float Epresses = 0;
@@ -29,14 +30,14 @@ public class playerPickup : MonoBehaviour
                 Epresses++;
             }
 
-            if (Epresses == 1 && pickedAny)
+            if (Epresses == 0 && pickedAny)
             {
                 pickedAny = false;
                 PController.picked = false;
                 item = null;
                 PController = null;
             }
-            if (Epresses == 0)
+            if (Epresses == 1)
             {
                 RaycastHit hit;
 
@@ -58,8 +59,24 @@ public class playerPickup : MonoBehaviour
             }
             if (pickedAny)
             {
-                item.transform.position = transform.position + transform.forward * 5 * transform.localScale.y + PController.offset;
-                if (PController.needsRotation) { item.transform.LookAt(player.transform); };
+                if(item == null)
+                {
+                    pickedAny = false;
+                    PController.picked = false;
+                    item = null;
+                    PController = null;
+                }
+                if(!PController.isGun)
+                {
+                    item.transform.position = transform.position + transform.forward * 5 * transform.localScale.y + PController.offset;
+                    if (PController.needsRotation) { item.transform.LookAt(player.transform); };
+                } else
+                {
+                    item.transform.position = gunPosition.transform.position;
+                    item.transform.rotation = gunPosition.transform.rotation;
+                }
+                
+                
                 if (Input.GetKeyDown(KeyCode.Mouse0) && PController.hasAction)
                 {
                     Debug.Log("прива)");

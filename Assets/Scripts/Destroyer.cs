@@ -14,9 +14,10 @@ public class Destroyer : MonoBehaviour
     void Update()
     {
         DateNow = DateTimeOffset.Now.ToUnixTimeSeconds();
-        if (CreatedAt + LifeTime > DateNow)
+        if (DateNow - CreatedAt > LifeTime)
         {
             Destroy(gameObject);
+            Debug.Log("Delete");
         }
     }
 }

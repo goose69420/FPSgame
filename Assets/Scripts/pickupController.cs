@@ -26,6 +26,8 @@ public class pickupController : MonoBehaviour
     public float reloadStartedAt;
     public long DateNow;
 
+    public bool isGun;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,12 +44,14 @@ public class pickupController : MonoBehaviour
         if(picked)
         {
             gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            gameObject.GetComponent<BoxCollider>().isTrigger = true;
+            gameObject.GetComponent<BoxCollider>().enabled = false;
+            gameObject.layer = 2;
         }
         if(!picked)
         {
             gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            gameObject.GetComponent<BoxCollider>().isTrigger = false;
+            gameObject.GetComponent<BoxCollider>().enabled = true;
+            gameObject.layer = 0;
         }
         if(gameObject.name == "RESPAWN")
         {
@@ -70,7 +74,8 @@ public class pickupController : MonoBehaviour
             Debug.Log("Полетел луч))");
             GameObject hitObject = hit.collider.gameObject;
             Shootable shootableController = hitObject.GetComponent<Shootable>();
-            Instantiate(shootEffectPrefab, hitObject.transform);
+            GameObject Effect = Instantiate(shootEffectPrefab, hit.point, Quaternion.identity);
+            Effect.GetComponent<Destroyer>().CreatedAt = DateNow;
             Debug.Log("DEBUG");
             if (!shootableController) return;
             shootableController.RegisterShoot(Damage);
