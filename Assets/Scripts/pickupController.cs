@@ -66,6 +66,7 @@ public class pickupController : MonoBehaviour
     }
     public void Action()
     {
+        CurrentAmmoInMagazine--;
         Debug.Log("Стрельнул");
         if (CurrentAmmoInMagazine == 0) return;
         if (DateNow - lastShot < ShotCoolDown) return;
@@ -79,6 +80,8 @@ public class pickupController : MonoBehaviour
             Debug.Log("DEBUG");
             if (!shootableController) return;
             shootableController.RegisterShoot(Damage);
+            
         };
+        
     }
 }

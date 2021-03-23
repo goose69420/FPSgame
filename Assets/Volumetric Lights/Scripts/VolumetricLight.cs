@@ -193,6 +193,7 @@ public class VolumetricLight : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(_commandBuffer);
         _commandBuffer.Clear();
     }
 

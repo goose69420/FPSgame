@@ -39,6 +39,9 @@ public class CanvasUpdater : MonoBehaviour
     float deltaTime;
 
     float escPresses;
+
+    public Text Ammo;
+    playerPickup Pickup;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +54,7 @@ public class CanvasUpdater : MonoBehaviour
         optionsMenu.SetActive(false);
         gameMenu.SetActive(true);
         deadPanel.SetActive(false);
+        Pickup = Camera.GetComponent<playerPickup>();
     }
 
     
@@ -58,6 +62,7 @@ public class CanvasUpdater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        AmmoUpdate();
         manageHP();
         ManageVolumetricLight();
 
@@ -176,6 +181,18 @@ public class CanvasUpdater : MonoBehaviour
         VolumetricL = Camera.GetComponent<VolumetricLightRenderer>();
         gameMenu.SetActive(true);
         deadPanel.SetActive(false);
-
+        Pickup = Camera.GetComponent<playerPickup>();
+    }
+    
+    private void AmmoUpdate()
+    {
+        if(Pickup != null && Pickup.item != null && Pickup?.PController?.isGun == true)
+        {
+            Ammo.enabled = true;
+            Ammo.text = $"Ammo: {Pickup.PController.CurrentAmmoInMagazine} from {Pickup.PController.MaxAmmo}";
+        } else
+        {
+            Ammo.enabled = false;
+        }
     }
 }
