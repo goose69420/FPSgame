@@ -37,7 +37,7 @@ public class playerPickup : MonoBehaviour
                 item = null;
                 PController = null;
             }
-            if (Epresses == 1)
+            if (Epresses == 1 && item == null)
             {
                 RaycastHit hit;
 
