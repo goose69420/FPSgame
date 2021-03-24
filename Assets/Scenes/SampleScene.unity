@@ -2439,6 +2439,7 @@ MonoBehaviour:
   reloadStartedAt: 0
   DateNow: 0
   isGun: 0
+  reloading: 0
 --- !u!54 &892614851
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5688,15 +5689,16 @@ MonoBehaviour:
   pickupable: 1
   picked: 0
   hasAction: 1
-  CurrentAmmoInMagazine: 30
+  CurrentAmmoInMagazine: 5
   Damage: 10
-  MaxAmmo: 30
-  ReloadTimeSeconds: 1
+  MaxAmmo: 5
+  ReloadTimeSeconds: 0
   ShotCoolDown: 0.1
   lastShot: 0
   reloadStartedAt: 0
   DateNow: 0
   isGun: 1
+  reloading: 0
 --- !u!54 &2000153411
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5782,7 +5784,7 @@ Transform:
   m_GameObject: {fileID: 2000153409}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 20.897907, y: 7.12, z: 17.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.57141, y: 0.57141, z: 0.57141}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -5934,14 +5936,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1567936378, guid: b632365ce80adfc4f8046faea71aa63e, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567936378, guid: b632365ce80adfc4f8046faea71aa63e, type: 3}
-      propertyPath: Resolution
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3605908096236666737, guid: b632365ce80adfc4f8046faea71aa63e,
         type: 3}
       propertyPath: m_Name

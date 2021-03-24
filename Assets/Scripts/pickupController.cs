@@ -19,14 +19,16 @@ public class pickupController : MonoBehaviour
     public float CurrentAmmoInMagazine;
     public float Damage;
     public float MaxAmmo;
-    public float ReloadTimeSeconds;
+    public long ReloadTimeSeconds;
     public float ShotCoolDown;
 
     public float lastShot;
-    public float reloadStartedAt;
+    public long reloadStartedAt;
     public long DateNow;
 
     public bool isGun;
+
+    public bool reloading;
 
     // Start is called before the first frame update
     void Start()
@@ -58,30 +60,37 @@ public class pickupController : MonoBehaviour
             transform.position = FindObjectOfType<GameControl>().MakeVector3Positive(transform.position);
         }
         DateNow = DateTimeOffset.Now.ToUnixTimeSeconds();
-        if(DateNow - reloadStartedAt > ReloadTimeSeconds)
+        if(DateNow - reloadStartedAt > ReloadTimeSeconds && reloading)
         {
             CurrentAmmoInMagazine = MaxAmmo;
+            reloading = false;
         }
         
     }
     public void Action()
     {
-        CurrentAmmoInMagazine--;
-        Debug.Log("Стрельнул");
-        if (CurrentAmmoInMagazine == 0) return;
-        if (DateNow - lastShot < ShotCoolDown) return;
-        if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out RaycastHit hit))
+        if (!reloading)
         {
-            Debug.Log("Полетел луч))");
-            GameObject hitObject = hit.collider.gameObject;
-            Shootable shootableController = hitObject.GetComponent<Shootable>();
-            GameObject Effect = Instantiate(shootEffectPrefab, hit.point, Quaternion.identity);
-            Effect.GetComponent<Destroyer>().CreatedAt = DateNow;
-            Debug.Log("DEBUG");
-            if (!shootableController) return;
-            shootableController.RegisterShoot(Damage);
-            
-        };
-        
+
+            CurrentAmmoInMagazine--;
+            if (CurrentAmmoInMagazine == 0)
+            {
+                reloadStartedAt = DateNow;
+                reloading = true;
+                return;
+            }
+            if (DateNow - lastShot < ShotCoolDown) return;
+            if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out RaycastHit hit))
+            {
+                GameObject hitObject = hit.collider.gameObject;
+                Shootable shootableController = hitObject.GetComponent<Shootable>();
+                GameObject Effect = Instantiate(shootEffectPrefab, hit.point, Quaternion.identity);
+                Effect.GetComponent<Destroyer>().CreatedAt = DateNow;
+                Debug.Log("DEBUG");
+                if (!shootableController) return;
+                shootableController.RegisterShoot(Damage);
+
+            };
+        }
     }
 }
