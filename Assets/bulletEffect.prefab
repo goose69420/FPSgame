@@ -107,5 +107,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CreatedAt: 0
-  LifeTime: 1
+  LifeTime: 500
   DateNow: 0

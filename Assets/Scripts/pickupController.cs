@@ -19,10 +19,10 @@ public class pickupController : MonoBehaviour
     public float CurrentAmmoInMagazine;
     public float Damage;
     public float MaxAmmo;
-    public long ReloadTimeSeconds;
+    public long ReloadTimeMSeconds;
     public float ShotCoolDown;
 
-    public float lastShot;
+    public long lastShot;
     public long reloadStartedAt;
     public long DateNow;
 
@@ -30,37 +30,62 @@ public class pickupController : MonoBehaviour
 
     public bool reloading;
 
+    public Rigidbody rb;
+    public BoxCollider boxCollider;
+    public MeshCollider meshCollider;
+
+    public Quaternion StartRotation;
+    public Quaternion reloadRotation;
+
     // Start is called before the first frame update
     void Start()
     {
         Camera = FindObjectOfType<MouseLook>().gameObject;
+        boxCollider = gameObject.GetComponent<BoxCollider>();
+        meshCollider = gameObject.GetComponent<MeshCollider>();
+        rb = gameObject.GetComponent<Rigidbody>();
+        StartRotation = transform.rotation;
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+
+
+        if(Input.GetKeyDown(KeyCode.R) && !reloading && CurrentAmmoInMagazine != MaxAmmo)
+        {
+            reloadStartedAt = DateNow;
+            reloading = true;
+        }
+
         if(Camera == null)
         {
             Camera = FindObjectOfType<MouseLook>().gameObject;
         }
         if(picked)
         {
-            gameObject.GetComponent<Rigidbody>().isKinematic = true;
-            gameObject.GetComponent<BoxCollider>().enabled = false;
+            rb.isKinematic = true;
+            if (boxCollider) boxCollider.enabled = false;
+            if (meshCollider) meshCollider.enabled = false;
+
             gameObject.layer = 2;
         }
         if(!picked)
         {
-            gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            gameObject.GetComponent<BoxCollider>().enabled = true;
+            rb.isKinematic = false;
+            if (boxCollider) boxCollider.enabled = true;
+            if (meshCollider) meshCollider.enabled = true;
+
             gameObject.layer = 0;
         }
         if(gameObject.name == "RESPAWN")
         {
             transform.position = FindObjectOfType<GameControl>().MakeVector3Positive(transform.position);
         }
-        DateNow = DateTimeOffset.Now.ToUnixTimeSeconds();
-        if(DateNow - reloadStartedAt > ReloadTimeSeconds && reloading)
+        DateNow = DateTimeOffset.Now.ToUnixTimeMilliseconds();
+        if(DateNow - reloadStartedAt > ReloadTimeMSeconds && reloading)
         {
             CurrentAmmoInMagazine = MaxAmmo;
             reloading = false;
@@ -71,22 +96,22 @@ public class pickupController : MonoBehaviour
     {
         if (!reloading)
         {
-
-            CurrentAmmoInMagazine--;
             if (CurrentAmmoInMagazine == 0)
             {
+                
                 reloadStartedAt = DateNow;
                 reloading = true;
                 return;
             }
             if (DateNow - lastShot < ShotCoolDown) return;
+            CurrentAmmoInMagazine--;
+            lastShot = DateNow;
             if (Physics.Raycast(Camera.transform.position, Camera.transform.forward, out RaycastHit hit))
             {
                 GameObject hitObject = hit.collider.gameObject;
                 Shootable shootableController = hitObject.GetComponent<Shootable>();
                 GameObject Effect = Instantiate(shootEffectPrefab, hit.point, Quaternion.identity);
                 Effect.GetComponent<Destroyer>().CreatedAt = DateNow;
-                Debug.Log("DEBUG");
                 if (!shootableController) return;
                 shootableController.RegisterShoot(Damage);
 

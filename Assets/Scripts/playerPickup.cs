@@ -73,13 +73,12 @@ public class playerPickup : MonoBehaviour
                 } else
                 {
                     item.transform.position = gunPosition.transform.position;
-                    item.transform.rotation = gunPosition.transform.rotation;
+                    item.transform.rotation = gunPosition.transform.rotation * PController.StartRotation;
                 }
                 
                 
                 if (Input.GetKeyDown(KeyCode.Mouse0) && PController.hasAction)
                 {
-                    Debug.Log("прива)");
                     PController.Action();
                 }
             }

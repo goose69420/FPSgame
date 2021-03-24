@@ -190,6 +190,7 @@ public class CanvasUpdater : MonoBehaviour
         {
             Ammo.enabled = true;
             Ammo.text = $"Ammo: {Pickup.PController.CurrentAmmoInMagazine} from {Pickup.PController.MaxAmmo}";
+            if (Pickup.PController.reloading) Ammo.text += " RELOADING...";
         } else
         {
             Ammo.enabled = false;

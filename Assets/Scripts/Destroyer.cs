@@ -13,11 +13,10 @@ public class Destroyer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DateNow = DateTimeOffset.Now.ToUnixTimeSeconds();
+        DateNow = DateTimeOffset.Now.ToUnixTimeMilliseconds();
         if (DateNow - CreatedAt > LifeTime)
         {
             Destroy(gameObject);
-            Debug.Log("Delete");
         }
     }
 }
